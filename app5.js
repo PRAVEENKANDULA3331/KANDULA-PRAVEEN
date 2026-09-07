@@ -1,6 +1,22 @@
 async function placeOrder(){
- let c=db.customers[0],items=[];db.products.filter(p=>p.active).forEach(p=>{let q=Number(document.getElementById("q_"+p.id)?.value||0);if(q>0)items.push({product_id:p.id,quantity:q})});if(!items.length)return alert("Select at least one product.");
- try{let result=await rpc("app_customer_order",{p_token:token(),p_delivery_date:tomorrow(),p_items:items});await refreshState(false);let lines=items.map(x=>{let p=db.products.find(z=>z.id===x.product_id);return `${p?.name||x.product_id} - ${x.quantity}`}).join("\n");let msg=`${s().agency_name}\nNEW ORDER\nShop: ${c.shop_name}\nMobile: ${c.mobile}\nDelivery: ${tomorrow()}\n${lines}\nTotal: ${money(result.total)}`;location.href=`https://wa.me/91${String(s().whatsapp||"").replace(/\D/g,"")}?text=${encodeURIComponent(msg)}`}catch(e){alert(e.message)}
+ let c=db.customers[0],items=[];
+ db.products.filter(p=>p.active).forEach(p=>{
+   let e=document.getElementById("q_"+p.id);
+   let q=e?Math.max(0,Math.floor(Number(e.value||0))):draftQty(p.id);
+   orderDraft[p.id]=q;
+   if(q>0)items.push({product_id:p.id,quantity:q});
+ });
+ if(!items.length)return alert("Select at least one product.");
+ try{
+   let result=await rpc("app_customer_order",{p_token:token(),p_delivery_date:tomorrow(),p_items:items});
+   Object.keys(orderDraft).forEach(k=>delete orderDraft[k]);
+   await refreshState(false);
+   let lines=items.map(x=>{let p=db.products.find(z=>z.id===x.product_id);return `${p?.name||x.product_id} - ${x.quantity}`}).join("\n");
+   let msg=`${s().agency_name}\nNEW ORDER\nShop: ${c.shop_name}\nMobile: ${c.mobile}\nDelivery: ${tomorrow()}\n${lines}\nTotal: ${money(result.total)}`;
+   alert("Order placed successfully.");
+   renderCustomer("orders");
+   setTimeout(()=>{location.href=`https://wa.me/91${String(s().whatsapp||"").replace(/\D/g,"")}?text=${encodeURIComponent(msg)}`},250);
+ }catch(e){alert(e.message)}
 }
 function customerOrders(c){
  return `<div class="card"><h3>My Orders</h3><p class="small muted">Payment is attached to each order. The amount is automatically the exact unpaid order balance.</p><div class="list">${db.orders.map(o=>{let due=orderDue(o);return `<div class="item"><div class="between"><div><b>Delivery: ${o.delivery_date}</b><div class="small muted">${new Date(o.created_at).toLocaleString()}</div></div><span class="pill">${o.status}</span></div><div style="margin:8px 0">${itemsForOrder(o.id).map(i=>`${esc(i.product_name)} × ${i.quantity} @ ${money(i.unit_price)}`).join("<br>")}</div><div class="between"><div><b>Total ${money(o.total)}</b><br><span class="small">Balance: <b>${money(due)}</b></span></div>${due>0&&o.status!=="cancelled"?`<button class="btn green" onclick="payOrder('${o.id}')">Proceed to Payment</button>`:`<span class="pill">PAID</span>`}</div></div>`}).join("")||"<p>No orders yet.</p>"}</div></div>`;
