@@ -1,0 +1,22 @@
+:root{--blue:#0b4ea2;--blue2:#1976d2;--bg:#f4f7fb;--card:#fff;--text:#142033;--muted:#667085;--line:#dce5ef;--green:#138a45;--red:#d32f2f;--orange:#ef6c00;--purple:#6a1b9a}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+.top{background:linear-gradient(135deg,#063b80,var(--blue2));color:#fff;padding:16px;position:sticky;top:0;z-index:20;box-shadow:0 3px 12px #0002}
+.wrap{max-width:1180px;margin:auto;padding:14px}.top .wrap{padding:0}.brand{font-weight:900;font-size:22px;letter-spacing:.2px}.sub{font-size:12px;opacity:.9}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:0 5px 18px #0b4ea20b}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.list{display:flex;flex-direction:column;gap:10px}
+.item{border:1px solid var(--line);border-radius:15px;padding:12px;background:#fff}.between{display:flex;justify-content:space-between;align-items:center;gap:10px}.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:10px 13px;font-weight:800}.primary{background:var(--blue);color:#fff}.green{background:#16a34a;color:#fff}.red{background:#dc2626;color:#fff}.orange{background:#f97316;color:#fff}.purple{background:#7e22ce;color:#fff}.ghost{background:#edf4ff;color:var(--blue)}
+.btn.block{width:100%}.tabs{display:flex;gap:8px;overflow:auto;padding-bottom:6px;margin-bottom:12px}.tab{white-space:nowrap;border:0;background:#e8eef8;color:#29415f;padding:9px 12px;border-radius:999px;font-weight:800}.tab.active{background:var(--blue);color:#fff}
+input,select{width:100%;padding:10px 11px;border:1px solid #cdd8e7;border-radius:11px;background:#fff}label{display:block;margin:8px 0 5px;font-size:12px;color:var(--muted);font-weight:800}
+.stat{font-size:26px;font-weight:900}.price{font-size:20px;font-weight:900;color:var(--green)}.muted{color:var(--muted)}.small{font-size:12px}.pill{display:inline-block;border-radius:999px;padding:5px 9px;background:#eef4ff;color:var(--blue);font-size:12px;font-weight:800}
+.login{max-width:440px;margin:28px auto}.product-img{width:78px;height:78px;object-fit:cover;border-radius:14px;border:1px solid var(--line);background:#f8fafc}.product-line{display:grid;grid-template-columns:84px 1fr auto;gap:10px;align-items:center}
+.qty{display:flex;align-items:center;gap:7px}.qty button{width:38px;height:38px;border:0;border-radius:10px;background:#eaf1ff;color:var(--blue);font-weight:900}.qty input{width:72px;text-align:center}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.modal{position:fixed;inset:0;background:#0008;z-index:50;display:grid;place-items:center;padding:12px}.modalbox{width:min(720px,100%);max-height:90vh;overflow:auto;background:white;border-radius:18px;padding:16px}
+.payapps{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.payapp{border:0;border-radius:16px;padding:14px;color:#fff;font-weight:900}.phonepe{background:#5f259f}.gpay{background:#4285f4}.paytm{background:#00b9f1}.upi{background:#f57c00}
+.notice{padding:10px 12px;border-radius:12px;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}.successbox{padding:10px 12px;border-radius:12px;background:#ecfdf3;color:#166534;border:1px solid #bbf7d0}
+.bottom-curd{margin-top:16px;background:linear-gradient(135deg,#fff,#e9f5ff);border:2px solid #90caf9;border-radius:18px;padding:16px;text-align:center}
+.bottom-curd .big{font-size:34px;font-weight:1000;color:var(--blue)}.footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}
+.sync{font-size:11px;opacity:.85}.error{color:#b91c1c;font-size:12px;margin-top:8px}
+@media(max-width:650px){.wrap{padding:10px}.product-line{grid-template-columns:65px 1fr}.product-img{width:60px;height:60px}.product-line>.qty{grid-column:1/-1;justify-content:flex-end}.stat{font-size:22px}table{font-size:11px}}
