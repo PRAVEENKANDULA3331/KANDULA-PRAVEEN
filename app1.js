@@ -27,7 +27,8 @@ async function refreshState(repaint=true){
  try{
    const next=await rpc("app_state",{p_token:token()});
    db=normalize(next);
-   if(repaint && !document.querySelector(".modal")){
+   const editingOrder=role()==="customer"&&currentPage==="order";
+   if(repaint && !editingOrder && !document.querySelector(".modal")){
       if(role()==="admin") renderAdmin(currentPage);
       else if(role()==="customer") renderCustomer(currentPage);
    }
