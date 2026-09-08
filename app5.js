@@ -28,11 +28,10 @@ function payOrder(oid){
  <p><b>Delivery:</b> ${o.delivery_date}<br><b>Exact amount due:</b> ${money(due)}<br><b>UPI ID:</b> ${esc(s().upi_id||"")}</p>
  <div class="grid">
    <button class="btn primary" onclick="showQr('${oid}')">Pay by QR</button>
-   <button class="btn orange" onclick="openUpi('${oid}')">Open UPI App</button>
+   <button class="btn orange" onclick="showManualUpi('${oid}')">Pay using UPI ID</button>
    <button class="btn green" onclick="selectCOD('${oid}')">Cash on Delivery</button>
  </div>
- <button class="btn ghost block" style="margin-top:10px" onclick="copyUpiDetails('${oid}')">Copy UPI ID & Amount</button>
- <div class="notice" style="margin-top:12px">If the UPI app blocks the website link, use QR or copy the UPI ID and pay manually.</div>
+ <div class="notice" style="margin-top:12px">Direct website-to-UPI app PIN flow is disabled because some UPI apps block browser-launched payments. QR and manual UPI ID payment are more reliable.</div>
  </div></div>`;
 }
 function upiData(oid){
@@ -43,13 +42,17 @@ function upiData(oid){
  let q=new URLSearchParams({pa:String(s().upi_id||"").trim(),pn:String(s().agency_name||"GANTALAMMA MILK AGENCY").trim(),tr:ref,tn:note,am:Number(due).toFixed(2),cu:"INR"}).toString();
  return {q,due,ref,uri:"upi://pay?"+q};
 }
-function openUpi(oid){let d=upiData(oid);if(!d)return alert("Nothing is due on this order.");location.href=d.uri}
 function showQr(oid){
  let d=upiData(oid);if(!d)return alert("Nothing is due on this order.");
  modal.innerHTML=`<div class="modal"><div class="modalbox" style="text-align:center"><div class="between"><h3>Scan UPI QR</h3><button class="btn ghost" onclick="closeModal()">Close</button></div><p>Pay exactly <b>${money(d.due)}</b></p><div id="qrbox" style="display:flex;justify-content:center;margin:16px 0"></div><p class="small">UPI ID: <b>${esc(s().upi_id||"")}</b></p><div class="notice">Scan this QR using PhonePe, Google Pay, Paytm or any UPI app. After payment, tap the button below.</div><button class="btn primary block" style="margin-top:12px" onclick="submitPaid('${oid}')">I COMPLETED QR/UPI PAYMENT</button><button class="btn ghost block" style="margin-top:8px" onclick="copyUpiDetails('${oid}')">Copy UPI ID & Amount</button></div></div>`;
  let box=document.getElementById("qrbox");
  if(typeof QRCode==="function")new QRCode(box,{text:d.uri,width:220,height:220,correctLevel:QRCode.CorrectLevel.M});
  else box.innerHTML=`<div class="error">QR could not load. Use Copy UPI ID & Amount.</div>`;
+}
+function showManualUpi(oid){
+ let o=db.orders.find(x=>x.id===oid),due=o?orderDue(o):0;
+ if(!o||due<=0)return alert("Nothing is due on this order.");
+ modal.innerHTML=`<div class="modal"><div class="modalbox"><div class="between"><h3>Pay using UPI ID</h3><button class="btn ghost" onclick="closeModal()">Close</button></div><div class="successbox" style="margin-top:10px"><div class="small muted">UPI ID</div><div style="font-size:22px;font-weight:900">${esc(s().upi_id||"")}</div><div class="small muted" style="margin-top:10px">Exact amount</div><div class="stat">${money(due)}</div></div><p class="small muted">Open PhonePe / Google Pay / Paytm manually, choose Pay to UPI ID, paste the UPI ID above, and pay the exact amount.</p><button class="btn ghost block" onclick="copyUpiDetails('${oid}')">Copy UPI ID & Amount</button><button class="btn primary block" style="margin-top:10px" onclick="submitPaid('${oid}')">I COMPLETED UPI PAYMENT</button></div></div>`;
 }
 async function copyUpiDetails(oid){
  let o=db.orders.find(x=>x.id===oid),due=o?orderDue(o):0;
