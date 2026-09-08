@@ -3,6 +3,7 @@
 button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
 .top{background:linear-gradient(135deg,#063b80,var(--blue2));color:#fff;padding:16px;position:sticky;top:0;z-index:20;box-shadow:0 3px 12px #0002}
 .wrap{max-width:1180px;margin:auto;padding:14px}.top .wrap{padding:0}.brand{font-weight:900;font-size:22px;letter-spacing:.2px}.sub{font-size:12px;opacity:.9}
+.company-brand{display:flex;align-items:center;gap:12px;min-width:0}.company-logo{width:64px;height:64px;object-fit:contain;background:#fff;border-radius:14px;padding:5px;box-shadow:0 3px 12px #0003;flex:0 0 auto}.company-name{font-size:25px;line-height:1.05;font-weight:1000;letter-spacing:.2px;text-shadow:0 1px 2px #0003}.agency-brand{font-size:15px;line-height:1.2;margin-top:4px;opacity:.96}.portal-sub{margin-left:76px;margin-top:3px}
 .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:0 5px 18px #0b4ea20b}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.list{display:flex;flex-direction:column;gap:10px}
 .item{border:1px solid var(--line);border-radius:15px;padding:12px;background:#fff}.between{display:flex;justify-content:space-between;align-items:center;gap:10px}.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -16,7 +17,8 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px 6px;b
 .modal{position:fixed;inset:0;background:#0008;z-index:50;display:grid;place-items:center;padding:12px}.modalbox{width:min(720px,100%);max-height:90vh;overflow:auto;background:white;border-radius:18px;padding:16px}
 .payapps{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.payapp{border:0;border-radius:16px;padding:14px;color:#fff;font-weight:900}.phonepe{background:#5f259f}.gpay{background:#4285f4}.paytm{background:#00b9f1}.upi{background:#f57c00}
 .notice{padding:10px 12px;border-radius:12px;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}.successbox{padding:10px 12px;border-radius:12px;background:#ecfdf3;color:#166534;border:1px solid #bbf7d0}
+.brand-preview{margin-top:12px;display:flex;align-items:center;gap:14px;padding:12px;border:1px solid var(--line);border-radius:14px;background:#f8fbff}.brand-preview img{width:110px;height:76px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:12px;padding:5px}.divider{border:0;border-top:1px solid var(--line);margin:18px 0}
 .bottom-curd{margin-top:16px;background:linear-gradient(135deg,#fff,#e9f5ff);border:2px solid #90caf9;border-radius:18px;padding:16px;text-align:center}
 .bottom-curd .big{font-size:34px;font-weight:1000;color:var(--blue)}.footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}
 .sync{font-size:11px;opacity:.85}.error{color:#b91c1c;font-size:12px;margin-top:8px}
-@media(max-width:650px){.wrap{padding:10px}.product-line{grid-template-columns:65px 1fr}.product-img{width:60px;height:60px}.product-line>.qty{grid-column:1/-1;justify-content:flex-end}.stat{font-size:22px}table{font-size:11px}}
+@media(max-width:650px){.wrap{padding:10px}.company-logo{width:52px;height:52px;border-radius:12px}.company-name{font-size:19px}.agency-brand{font-size:13px}.portal-sub{margin-left:64px}.top{padding:12px}.product-line{grid-template-columns:65px 1fr}.product-img{width:60px;height:60px}.product-line>.qty{grid-column:1/-1;justify-content:flex-end}.stat{font-size:22px}table{font-size:11px}.brand-preview img{width:90px;height:64px}}
